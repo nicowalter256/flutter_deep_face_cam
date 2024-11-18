@@ -19,32 +19,26 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: whiteBG,
       appBar: const AppBarWidget(),
       bottomNavigationBar: const BottomNavigationWidget(),
-      body: Stack(
+      body: Column(
         children: [
-          SizedBox(
-            height: size.height,
-            width: double.infinity,
-          ),
-          Positioned(
-            top: 100,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: size.height / 3,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  border: Border.all(
-                    color: Colors.grey.withOpacity(0.3),
-                  ),
+          const SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              height: size.height / 3,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.3),
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
+          const SizedBox(height: 50),
+          Expanded(
             child: Container(
               height: size.height / 3,
               width: double.infinity,
@@ -94,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 50),
                   Container(
                     width: size.height / 5,
                     decoration: const BoxDecoration(

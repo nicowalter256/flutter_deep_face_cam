@@ -10,7 +10,7 @@ class BottomNavigationWidget extends StatelessWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            orangeBG,
+            Color.fromARGB(255, 74, 32, 2),
             whiteBG,
           ],
           begin: Alignment.topLeft,
@@ -24,10 +24,7 @@ class BottomNavigationWidget extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         fixedColor: whiteBG,
         unselectedItemColor: whiteBG,
-        // currentIndex: context.read<HomeController>().currentIndex,
-        onTap: (value) {
-          //  counter.updateIndex(value);
-        },
+        onTap: (value) {},
         items: const [
           BottomNavigationBarItem(
             label: 'Home',

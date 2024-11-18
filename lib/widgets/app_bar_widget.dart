@@ -12,12 +12,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
               colors: [
-                blackBG,
+                whiteBG,
                 orangeBG,
               ],
               begin: FractionalOffset(0.0, 0.0),
               end: FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
+              stops: [0.0, 5.0],
               tileMode: TileMode.clamp),
         ),
       ),
