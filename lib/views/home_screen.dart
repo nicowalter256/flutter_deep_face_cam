@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ImagePicker imagePicker = ImagePicker();
+  XFile? images2;
   XFile? images;
   void pickImageFromDevice() async {
     var image = await imagePicker.pickImage(source: ImageSource.camera);
@@ -60,6 +61,54 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     setState(() {});
+  }
+
+  void showBottomSheetPhoto2(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext buildContext) {
+          return Container(
+            color: Colors.transparent,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {
+                        doPickImage('camera');
+                      },
+                      dense: false,
+                      leading: const Icon(Icons.camera_alt, color: blackBG),
+                      title: const Text(
+                        "Camera",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    ListTile(
+                      dense: false,
+                      onTap: () => {doPickImage("gallery")},
+                      leading:
+                          const Icon(Icons.photo_library_sharp, color: blackBG),
+                      title: const Text(
+                        "Gallery",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   void showBottomSheetPhoto(context) {
@@ -220,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             onTap: () {
-                              showBottomSheetPhoto(context);
+                              showBottomSheetPhoto2(context);
                             },
                           ),
                         )
@@ -257,9 +306,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           size: 15,
                         ),
                         SizedBox(
-                          width: 5,
+                          width: 10,
                         ),
-                        Text("Deep video")
+                        Text("Process")
                       ],
                     ),
                   ),

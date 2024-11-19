@@ -32,7 +32,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             children: [
               Icon(Icons.video_camera_front),
               SizedBox(width: 10),
-              Text("My Videos")
+              Text("Outputs")
             ],
           ),
         ),
