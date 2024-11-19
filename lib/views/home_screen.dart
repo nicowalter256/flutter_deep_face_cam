@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../constants/colors.dart';
-import '../constants/images.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/bottom_navigation_widget.dart';
 import '../widgets/switch_widget.dart';
@@ -21,8 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isPickingImage = false;
   final _picker = ImagePicker();
 
-  bool _switchValue = false;
-
   Future<void> pickImage(ImageSource imageSource) async {
     setState(() {
       isPickingImage = true;
@@ -36,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   ImagePicker imagePicker = ImagePicker();
-  List<XFile> images = [];
+  XFile? images;
   void pickImageFromDevice() async {
     var image = await imagePicker.pickImage(source: ImageSource.camera);
     if (image != null) {
       setState(() {
-        images.add(image);
+        images = image;
       });
     }
   }
@@ -51,14 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
       var image = await imagePicker.pickImage(source: ImageSource.camera);
       if (image != null) {
         setState(() {
-          images.add(image);
+          images = image;
         });
       }
     } else {
       var image = await imagePicker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         setState(() {
-          images.add(image);
+          images = image;
         });
       }
     }
@@ -162,35 +158,72 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () => {
-                            showBottomSheetPhoto(context),
-                          },
-                          child: SizedBox(
-                            height: 150,
-                            width: 170,
-                            child: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              child: Image.network(
-                                profile,
-                                fit: BoxFit.cover,
+                        if (images != null)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(
+                              File("${images?.path}"),
+                              fit: BoxFit.fitWidth,
+                              height: 150,
+                              width: 170,
+                            ),
+                          ),
+                        Visibility(
+                          visible: images != null ? false : true,
+                          child: GestureDetector(
+                            child: Container(
+                              height: 150,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                  color: orangeBG,
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.all(10),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 30,
+                                  color: whiteBG,
+                                ),
                               ),
                             ),
+                            onTap: () {
+                              showBottomSheetPhoto(context);
+                            },
                           ),
                         ),
-                        SizedBox(
-                          height: 150,
-                          width: 170,
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: Image.network(
-                              profile,
-                              fit: BoxFit.cover,
+                        if (images != null)
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(
+                              File("${images?.path}"),
+                              fit: BoxFit.fitWidth,
+                              height: 150,
+                              width: 170,
                             ),
                           ),
-                        ),
+                        Visibility(
+                          visible: images != null ? false : true,
+                          child: GestureDetector(
+                            child: Container(
+                              height: 150,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                  color: orangeBG,
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: const EdgeInsets.all(10),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 30,
+                                  color: whiteBG,
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              showBottomSheetPhoto(context);
+                            },
+                          ),
+                        )
                       ],
                     ),
                   ),
