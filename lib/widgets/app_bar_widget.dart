@@ -9,17 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                whiteBG,
-                orangeBG,
-              ],
-              begin: FractionalOffset(0.0, 0.0),
-              end: FractionalOffset(1.0, 0.0),
-              stops: [0.0, 5.0],
-              tileMode: TileMode.clamp),
-        ),
+        decoration: const BoxDecoration(color: blueBG),
       ),
       actions: [
         Container(
