@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import '../constants/colors.dart';
+import '../controllers/home_controller.dart';
 
 class ProcessImage extends StatefulWidget {
   const ProcessImage({super.key});
@@ -156,151 +158,171 @@ class _ProcessImageState extends State<ProcessImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (face != null)
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.file(
-                    File("${face?.path}"),
-                    fit: BoxFit.fitWidth,
-                    height: 150,
-                    width: 170,
-                  ),
-                ),
-                Positioned.fill(
-                    child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        face = null;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: const Icon(
-                        Icons.close,
-                        size: 24,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ))
-              ],
-            ),
-          Visibility(
-            visible: face != null ? false : true,
-            child: GestureDetector(
-              child: Container(
-                height: 150,
-                width: 170,
-                decoration: BoxDecoration(
-                    color: blueBG, borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Consumer<HomeController>(
+      builder: (BuildContext context, HomeController value, Widget? child) {
+        final controller = context.read<HomeController>();
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (face != null)
+                Stack(
                   children: [
-                    const Center(
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        size: 30,
-                        color: whiteBG,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.file(
+                        File("${face?.path}"),
+                        fit: BoxFit.fitWidth,
+                        height: 150,
+                        width: 170,
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "Select face",
-                      style: GoogleFonts.mulish(
-                        textStyle: const TextStyle(
-                            color: whiteBG, fontWeight: FontWeight.bold),
-                      ),
-                    )
+                    Positioned(
+                        top: 5,
+                        right: 5,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                face = null;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.close,
+                                size: 24,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ))
                   ],
                 ),
+              Visibility(
+                visible: face != null ? false : true,
+                child: GestureDetector(
+                  child: Container(
+                    height: 150,
+                    width: 170,
+                    decoration: BoxDecoration(
+                        color: blueBG, borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (controller.currentIndex == 2)
+                          const Center(
+                            child: Icon(
+                              Icons.video_camera_back_outlined,
+                              size: 30,
+                              color: whiteBG,
+                            ),
+                          ),
+                        if (controller.currentIndex != 2)
+                          const Center(
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              size: 30,
+                              color: whiteBG,
+                            ),
+                          ),
+                        const SizedBox(height: 15),
+                        Text(
+                          controller.cardText,
+                          style: GoogleFonts.mulish(
+                            textStyle: const TextStyle(
+                                color: whiteBG, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    showBottomSheetFacePhoto(context);
+                  },
+                ),
               ),
-              onTap: () {
-                showBottomSheetFacePhoto(context);
-              },
-            ),
+              if (target != null)
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.file(
+                        File("${target?.path}"),
+                        fit: BoxFit.fitWidth,
+                        height: 150,
+                        width: 170,
+                      ),
+                    ),
+                    Positioned(
+                        right: 5,
+                        top: 5,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                target = null;
+                              });
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.close,
+                                size: 24,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
+              Visibility(
+                visible: target != null || controller.currentIndex == 1
+                    ? false
+                    : true,
+                child: GestureDetector(
+                  child: Container(
+                    height: 150,
+                    width: 170,
+                    decoration: BoxDecoration(
+                        color: blueBG, borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Center(
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 30,
+                            color: whiteBG,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          "Select target",
+                          style: GoogleFonts.mulish(
+                            textStyle: const TextStyle(
+                                color: whiteBG, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    showBottomSheetTargetPhoto(context);
+                  },
+                ),
+              )
+            ],
           ),
-          if (target != null)
-            Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.file(
-                    File("${target?.path}"),
-                    fit: BoxFit.fitWidth,
-                    height: 150,
-                    width: 170,
-                  ),
-                ),
-                Positioned.fill(
-                    child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        target = null;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: const Icon(
-                        Icons.close,
-                        size: 24,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ))
-              ],
-            ),
-          Visibility(
-            visible: target != null ? false : true,
-            child: GestureDetector(
-              child: Container(
-                height: 150,
-                width: 170,
-                decoration: BoxDecoration(
-                    color: blueBG, borderRadius: BorderRadius.circular(10)),
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Center(
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        size: 30,
-                        color: whiteBG,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "Select target",
-                      style: GoogleFonts.mulish(
-                        textStyle: const TextStyle(
-                            color: whiteBG, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              onTap: () {
-                showBottomSheetTargetPhoto(context);
-              },
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

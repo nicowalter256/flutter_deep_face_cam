@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../constants/colors.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/bottom_navigation_widget.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/process_image.dart';
 import '../widgets/switch_widget.dart';
 
@@ -16,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ImagePicker imagePicker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -51,44 +54,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       const ProcessImage(),
                       const SizedBox(height: 50),
-                      const SwitchWidget(
-                        title: "keep fps",
-                        toggler: true,
-                      ),
-                      const SwitchWidget(
-                        title: "keep frames",
-                        toggler: true,
-                      ),
-                      const SwitchWidget(
-                        title: "keep audio",
-                        toggler: false,
-                      ),
-                      Container(
-                        width: size.height / 5,
-                        decoration: const BoxDecoration(
-                          color: blueBG,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                      if (controller.currentIndex != 0)
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(
+                              controller.switchOtions.length, (index) {
+                            var data = controller.switchOtions[index];
+                            return SwitchWidget(
+                              title: data['name'],
+                              toggler: data['status'],
+                            );
+                          }).toList(),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.auto_awesome,
-                              size: 15,
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              "Process ${controller.btnText}",
-                              style: GoogleFonts.mulish(
-                                textStyle: const TextStyle(
-                                    color: whiteBG,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
+                      SizedBox(
+                        width: size.width / 3,
+                        child: CustomButton(
+                          name: controller.btnText,
+                          btnColor: blueBG,
+                          textColor: whiteBG,
+                          onPress: () async => {
+                            if (controller.currentIndex == 1)
+                              {
+                                await imagePicker.pickImage(
+                                    source: ImageSource.camera)
+                              }
+                          },
                         ),
                       ),
                     ],

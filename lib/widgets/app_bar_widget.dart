@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
 
@@ -11,21 +12,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: Container(
         decoration: const BoxDecoration(color: blueBG),
       ),
-      actions: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: const BoxDecoration(
-              color: whiteBG,
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(Icons.video_camera_front),
-              SizedBox(width: 10),
-              Text("Outputs")
-            ],
-          ),
+      title: Text(
+        "Deep Face preview",
+        style: GoogleFonts.mulish(
+          textStyle:
+              const TextStyle(color: whiteBG, fontWeight: FontWeight.bold),
         ),
+      ),
+      centerTitle: true,
+      actions: [
         const SizedBox(width: 20),
         Container(
           height: 40,

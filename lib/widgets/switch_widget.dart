@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SwitchWidget extends StatelessWidget {
-  final bool toggler;
+class SwitchWidget extends StatefulWidget {
+  bool toggler;
   final String title;
-  const SwitchWidget({super.key, required this.toggler, required this.title});
+  SwitchWidget({super.key, required this.toggler, required this.title});
 
+  @override
+  State<SwitchWidget> createState() => _SwitchWidgetState();
+}
+
+class _SwitchWidgetState extends State<SwitchWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,16 +19,16 @@ class SwitchWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           CupertinoSwitch(
-            value: toggler,
+            value: widget.toggler,
             onChanged: (value) {
-              // setState(() {
-              //   _switchValue = !_switchValue;
-              // });
+              setState(() {
+                widget.toggler = !widget.toggler;
+              });
             },
           ),
           const SizedBox(width: 10),
           Text(
-            title,
+            widget.title,
             style: GoogleFonts.mulish(
               textStyle:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
