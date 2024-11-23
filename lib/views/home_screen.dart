@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           btnColor: controller.currentIndex == 0
                               ? blueBG
                               : controller.currentIndex == 1
-                                  ? Colors.blue
+                                  ? Colors.redAccent.withOpacity(0.8)
                                   : Colors.green,
                           textColor: whiteBG,
                           onPress: () async => {

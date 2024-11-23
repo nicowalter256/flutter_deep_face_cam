@@ -4,7 +4,7 @@ class HomeController extends ChangeNotifier {
   int currentIndex = 0;
 
   String btnText = "Process image";
-  String cardText = "Select image";
+  String cardText = "Input image";
 
   List<Map<String, dynamic>> switchOtions = [
     {"id": 1, "name": "Keep fps", "status": true},
@@ -16,7 +16,7 @@ class HomeController extends ChangeNotifier {
     currentIndex = index;
     if (index == 0) {
       btnText = "Process image";
-      cardText = "Select image";
+      cardText = "Input image";
     }
     if (index == 1) {
       btnText = "Try live";
@@ -24,7 +24,7 @@ class HomeController extends ChangeNotifier {
     }
     if (index == 2) {
       btnText = "Process video";
-      cardText = "Select video";
+      cardText = "Target video";
     }
     notifyListeners();
   }
