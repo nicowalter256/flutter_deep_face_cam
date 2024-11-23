@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../constants/colors.dart';
@@ -31,20 +30,32 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Column(
             children: [
               const SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: size.height / 4,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    border: Border.all(
-                      color: Colors.grey.withOpacity(0.3),
+              Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: size.height / 4,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        border: Border.all(
+                          color: Colors.grey.withOpacity(0.3),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    bottom: 10,
+                    right: 30,
+                    child: IconButton(
+                      onPressed: () => {},
+                      icon: const Icon(Icons.download_rounded),
+                    ),
+                  )
+                ],
               ),
               const SizedBox(height: 20),
               Expanded(
@@ -70,7 +81,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: size.width / 3,
                         child: CustomButton(
                           name: controller.btnText,
-                          btnColor: blueBG,
+                          btnColor: controller.currentIndex == 0
+                              ? blueBG
+                              : controller.currentIndex == 1
+                                  ? Colors.blue
+                                  : Colors.green,
                           textColor: whiteBG,
                           onPress: () async => {
                             if (controller.currentIndex == 1)

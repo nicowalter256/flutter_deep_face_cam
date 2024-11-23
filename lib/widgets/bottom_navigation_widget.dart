@@ -12,7 +12,12 @@ class BottomNavigationWidget extends StatelessWidget {
       builder: (BuildContext context, HomeController value, Widget? child) {
         final controller = context.read<HomeController>();
         return Container(
-          decoration: const BoxDecoration(color: blueBG),
+          decoration: BoxDecoration(
+              color: controller.currentIndex == 0
+                  ? blueBG
+                  : controller.currentIndex == 1
+                      ? Colors.blue
+                      : Colors.green),
           child: BottomNavigationBar(
             backgroundColor: Colors.transparent,
             type: BottomNavigationBarType.fixed,
