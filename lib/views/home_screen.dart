@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../constants/colors.dart';
@@ -43,6 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         border: Border.all(
                           color: Colors.grey.withOpacity(0.3),
+                        ),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            controller.userCase1,
+                            style: GoogleFonts.mulish(
+                              textStyle: const TextStyle(
+                                  color: blackBG,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          ),
                         ),
                       ),
                     ),
