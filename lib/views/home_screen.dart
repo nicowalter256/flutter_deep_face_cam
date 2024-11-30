@@ -47,14 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    bottom: 10,
-                    right: 30,
-                    child: IconButton(
-                      onPressed: () => {},
-                      icon: const Icon(Icons.download_rounded),
-                    ),
-                  )
+                  if (controller.processed)
+                    Positioned(
+                      bottom: 10,
+                      right: 30,
+                      child: IconButton(
+                        onPressed: () => {},
+                        icon: const Icon(Icons.download_rounded),
+                      ),
+                    )
                 ],
               ),
               const SizedBox(height: 20),
@@ -66,8 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const ProcessImage(),
                       const SizedBox(height: 50),
                       if (controller.currentIndex != 0)
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
                           children: List.generate(
                               controller.switchOtions.length, (index) {
                             var data = controller.switchOtions[index];

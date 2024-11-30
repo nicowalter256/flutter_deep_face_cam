@@ -315,7 +315,7 @@ class _ProcessImageState extends State<ProcessImage> {
                         ),
                         const SizedBox(height: 15),
                         Text(
-                          "Target image",
+                          controller.targetText,
                           style: GoogleFonts.mulish(
                             textStyle: const TextStyle(
                                 color: whiteBG, fontWeight: FontWeight.bold),
