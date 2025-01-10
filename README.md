@@ -2,7 +2,7 @@
 
 Welcome to the **Deep Live Cam** Flutter package documentation. This package allows you to easily integrate real-time image processing, image to image processing, video to image and image to video processing or transformations into your Flutter apps. This guide will walk you through how to get started, use the package, and explore the available features.
 
-## Table of Contents
+# Table of Contents
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
